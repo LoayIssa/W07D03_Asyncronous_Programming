@@ -17,6 +17,7 @@ const readFile =()=>{
     console.log(content);
   });
 }
+//readFile()
 
 
 
@@ -28,6 +29,7 @@ const writeFile =()=>{
     }
   });
 }
+//writeFile()
 
 
 
@@ -43,6 +45,7 @@ const getPost = (id) => {
    console.log("ERR")
   });
 };
+//getPost(1);
 
 
 const getPostAsync = async (data) => {
@@ -53,6 +56,71 @@ const getPostAsync = async (data) => {
         throw err;
       }
 }; 
+//getPostAsync(10)
+//practice 1
+const appendToFile  = (data) =>{
+  appendFile('data.txt', `${data}`, (err) => {
+    if (err) {
+      console.log("ERR")
+    }
+    console.log('The "data to append" was appended to file!');
+  });
+}
+//practice 2
+
+const copyFile = (fileName) => {
+  function callback(err) {
+    if (err) throw err;
+    console.log("source.txt was copied to destination.txt");
+  }
+
+  fs.copyFile(`${fileName}`, "copy_of_data.txt", callback);
+};
+//copyFile("text.txt");
+
+//practice 3 
+const newPost = JSON.stringify({
+  title: "JavaScript Basics",
+  body: "This post contains information about javaScript ",
+  // the id of the user who is going to create the post
+  userId: 1,
+});
+
+const createPost = (post) => {
+  axios
+    .post("https://jsonplaceholder.typicode.com/posts", post)
+    .then(function (response) {
+      console.log(response.data);
+      return response.data;
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+//createPost(newPost)
+
+//practice 4
+
+const newPost1 = JSON.stringify({
+  id: 1,
+  title: "Updated Title",
+  body: "Updated body",
+  userId: 1,
+});
+
+const updatePost = (id, data) => {
+  axios
+    .put(`https://jsonplaceholder.typicode.com/posts/${id}`, data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+//updatePost(5, newPost);
+
 
 app.listen(port, () => {
   console.log(`practice app listening at http://localhost:${port}`);
