@@ -120,6 +120,38 @@ const updatePost = (id, data) => {
     });
 };
 //updatePost(5, newPost);
+//practice 5 
+
+const getUsers  = async () => {
+  try {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts/Users"
+    );
+    console.log(response.data);
+  } catch (err) {
+    throw err;
+  }
+};
+//getUsers();
+
+//practice 6
+const saveUsers = async () => {
+  try {
+  
+  const allUsers = await(getUsers()) 
+   fs.writeFile("users.txt",JSON.stringify(allUsers), (err) => {
+      if (err) {
+        console.log("Err")
+      }
+      console.log("The file has been saved");
+    });
+  } catch (err) {
+      throw err;
+    }
+}
+saveUsers()
+
+
 
 
 app.listen(port, () => {
